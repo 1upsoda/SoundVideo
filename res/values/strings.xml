@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">TestAgain</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="home">Home</string>
+    <string name="videobutton">Video</string>
+    <string name="playbutton">Play</string>
+    <string name="stopbutton">Stop</string>
+    <string name="pausebutton">Pause</string>
+    <string name="random">Random Song</string>
+    <string name="dropList">Song List</string>
+
+</resources>
