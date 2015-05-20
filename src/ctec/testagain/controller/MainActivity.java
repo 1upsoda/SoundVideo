@@ -1,6 +1,5 @@
 package ctec.testagain.controller;
 
-
 import android.app.Activity;
 import android.content.Intent;
 import android.media.MediaPlayer;
@@ -19,12 +18,12 @@ public class MainActivity extends Activity implements Runnable
 	private Thread soundThread;
 	private SeekBar soundSeekBar;
 	private Button videoButton;
-	
+
 	protected void onCreate(Bundle savedInstanceState)
 	{
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
-		
+
 		randomButton = (Button) findViewById(R.id.randomButton);
 		videoButton = (Button) findViewById(R.id.videoButton);
 		soundSeekBar = (SeekBar) findViewById(R.id.soundSeekBar);
@@ -32,48 +31,47 @@ public class MainActivity extends Activity implements Runnable
 		startButton = (Button) findViewById(R.id.playButton);
 		pauseButton = (Button) findViewById(R.id.pauseButton);
 		stopButton = (Button) findViewById(R.id.stopButton);
-		
+
 		setupListeners();
 		soundThread = new Thread(this);
 		soundThread.start();
-		
+
 	}
-	
+
 	private void setupListeners()
 	{
-		
-		videoButton.setOnClickListener(new View.OnClickListener() {
+
+		videoButton.setOnClickListener(new View.OnClickListener()
+		{
 
 			@Override
-			public void onClick(View currentView) {
+			public void onClick(View currentView)
+			{
 				// TODO Auto-generated method stub
-				Intent otherScreenIntent = new Intent(currentView.getContext(),
-						VideoActivity.class);
+				Intent otherScreenIntent = new Intent(currentView.getContext(), VideoActivity.class);
 				startActivityForResult(otherScreenIntent, 0);
 			}
 		});
 		startButton.setOnClickListener(new View.OnClickListener()
-		
-			{
-				
-				
-				@Override
-				public void onClick(View currentView)
-				{
-					soundPlayer.start();
-				}
-			});
-		randomButton.setOnClickListener(new View.OnClickListener()
-		
+
 		{
-			
-			
+
+			@Override
+			public void onClick(View currentView)
+			{
+				soundPlayer.start();
+			}
+		});
+		randomButton.setOnClickListener(new View.OnClickListener()
+
+		{
+
 			@Override
 			public void onClick(View currentView)
 			{
 				soundPlayer.stop();
 				int randomChoice = (int) (Math.random() * 4);
-				if(randomChoice == 1)
+				if (randomChoice == 1)
 				{
 					soundPlayer = MediaPlayer.create(getBaseContext(), R.raw.ventricide);
 				}
@@ -93,9 +91,9 @@ public class MainActivity extends Activity implements Runnable
 			}
 		});
 		stopButton.setOnClickListener(new View.OnClickListener()
-		
+
 		{
-			
+
 			@Override
 			public void onClick(View currentView)
 			{
@@ -103,51 +101,52 @@ public class MainActivity extends Activity implements Runnable
 				soundPlayer = MediaPlayer.create(getBaseContext(), R.raw.ragtime);
 			}
 		});
-		
-		
+
 		pauseButton.setOnClickListener(new View.OnClickListener()
-		
+
 		{
-			
-			
+
 			@Override
 			public void onClick(View currentView)
 			{
 				soundPlayer.pause();
 			}
 		});
-		
+
 		soundSeekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener()
 		{
 			@Override
 			public void onStopTrackingTouch(SeekBar seekBar)
-			{}
+			{
+			}
+
 			@Override
 			public void onStartTrackingTouch(SeekBar seekBar)
-			{}
-			
+			{
+			}
+
 			@Override
 			public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser)
 			{
-				if(fromUser)
+				if (fromUser)
 				{
 					soundPlayer.seekTo(progress);
 				}
 			}
-			
+
 		});
-		
+
 	}
 
 	@Override
-	public void run() 
-	
+	public void run()
+
 	{
 		int currentPosition = 0;
 		int soundTotal = soundPlayer.getDuration();
-		
+
 		soundSeekBar.setMax(soundTotal);
-		
+
 		while (soundPlayer != null && currentPosition < soundTotal)
 		{
 			try
@@ -155,16 +154,16 @@ public class MainActivity extends Activity implements Runnable
 				Thread.sleep(50);
 				currentPosition = soundPlayer.getCurrentPosition();
 			}
-			catch(InterruptedException soundException)
+			catch (InterruptedException soundException)
 			{
 				return;
 			}
-			catch(Exception otherException)
+			catch (Exception otherException)
 			{
 				return;
 			}
 			soundSeekBar.setProgress(currentPosition);
 		}
-		
+
 	}
 }

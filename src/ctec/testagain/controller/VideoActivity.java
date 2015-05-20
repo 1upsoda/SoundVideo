@@ -34,9 +34,6 @@ public class VideoActivity extends Activity
 		myPlayer.setMediaController(myVideoController);
 		myPlayer.setVideoURI(videoLocation);
 		
-		/**
-		 * check out the notes in download
-		 */
 	}
 	private void setupListeners()
 	{
